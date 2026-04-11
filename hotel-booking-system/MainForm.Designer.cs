@@ -43,14 +43,17 @@
             label4 = new Label();
             untilTextBox = new DateTimePicker();
             addButton = new MaterialSkin.Controls.MaterialButton();
+            SearchBar = new MaterialSkin.Controls.MaterialTextBox2();
+            label5 = new Label();
+            SearchButton = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { Id, Phone_Number, Apartment, Stays_for, Stays_Until });
-            listView1.Location = new Point(6, 86);
+            listView1.Location = new Point(6, 139);
             listView1.Name = "listView1";
-            listView1.Size = new Size(519, 343);
+            listView1.Size = new Size(519, 290);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -232,11 +235,71 @@
             addButton.UseVisualStyleBackColor = true;
             addButton.Click += addButton_Click;
             // 
+            // SearchBar
+            // 
+            SearchBar.AnimateReadOnly = false;
+            SearchBar.BackgroundImageLayout = ImageLayout.None;
+            SearchBar.CharacterCasing = CharacterCasing.Normal;
+            SearchBar.Depth = 0;
+            SearchBar.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            SearchBar.HideSelection = true;
+            SearchBar.LeadingIcon = null;
+            SearchBar.Location = new Point(6, 90);
+            SearchBar.Margin = new Padding(3, 2, 3, 2);
+            SearchBar.MaxLength = 32767;
+            SearchBar.MouseState = MaterialSkin.MouseState.OUT;
+            SearchBar.Name = "SearchBar";
+            SearchBar.PasswordChar = '\0';
+            SearchBar.PrefixSuffixText = null;
+            SearchBar.ReadOnly = false;
+            SearchBar.RightToLeft = RightToLeft.No;
+            SearchBar.SelectedText = "";
+            SearchBar.SelectionLength = 0;
+            SearchBar.SelectionStart = 0;
+            SearchBar.ShortcutsEnabled = true;
+            SearchBar.Size = new Size(273, 48);
+            SearchBar.TabIndex = 10;
+            SearchBar.TabStop = false;
+            SearchBar.TextAlign = HorizontalAlignment.Left;
+            SearchBar.TrailingIcon = null;
+            SearchBar.UseSystemPasswordChar = false;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(5, 72);
+            label5.Name = "label5";
+            label5.Size = new Size(101, 15);
+            label5.TabIndex = 11;
+            label5.Text = "Search for a room";
+            // 
+            // SearchButton
+            // 
+            SearchButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            SearchButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            SearchButton.Depth = 0;
+            SearchButton.HighEmphasis = true;
+            SearchButton.Icon = Properties.Resources.search_icon_png_11;
+            SearchButton.Location = new Point(285, 96);
+            SearchButton.Margin = new Padding(4, 4, 4, 4);
+            SearchButton.MouseState = MaterialSkin.MouseState.HOVER;
+            SearchButton.Name = "SearchButton";
+            SearchButton.NoAccentTextColor = Color.Empty;
+            SearchButton.Size = new Size(64, 36);
+            SearchButton.TabIndex = 12;
+            SearchButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            SearchButton.UseAccentColor = false;
+            SearchButton.UseVisualStyleBackColor = true;
+            SearchButton.Click += SearchButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SearchButton);
+            Controls.Add(label5);
+            Controls.Add(SearchBar);
             Controls.Add(addButton);
             Controls.Add(untilTextBox);
             Controls.Add(label4);
@@ -271,5 +334,8 @@
         private ColumnHeader Stays_for;
         private ColumnHeader Stays_Until;
         private MaterialSkin.Controls.MaterialButton addButton;
+        private MaterialSkin.Controls.MaterialTextBox2 SearchBar;
+        private Label label5;
+        private MaterialSkin.Controls.MaterialButton SearchButton;
     }
 }

@@ -51,6 +51,7 @@ namespace hotel_booking_system
                     UntilDate = untildate
                 };
                 FileManager.Add(customer);
+                DataManager.Add(customer);
                 var item = new ListViewItem(listView1.Items.Count + 1 + "");
                 item.SubItems.Add(phonenumber);
                 item.SubItems.Add(apartmentnumber);
@@ -63,179 +64,46 @@ namespace hotel_booking_system
                 MaterialMessageBox.Show(ex.Message);
             }
         }
-    }
-    public class Entity
-    {
-        public virtual string FileName { get; }
-        public Guid Id { get; set; }
-        public Entity()
-        {
-            Id = Guid.NewGuid();
-        }
-        public Entity(Guid id)
-        {
-            Id = id;
-        }
-        public bool IsValid()
-        {
-            return Id != Guid.Empty;
-        }
-        public virtual string Format()
-        {
-            return "[" + Id.ToString() + "]";
-        }
-    }
-    public class Person : Entity
-    {
-        public override string FileName => "Person.txt";
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? Email { get; set; }
-        public Person()
-        {
-            FirstName = string.Empty;
-            LastName = string.Empty;
-            Email = string.Empty;
-        }
-        public Person(Guid id, string firstname, string lastname, string email) : base(id)
-        {
-            FirstName = firstname;
-            LastName = lastname;
-            Email = email;
-        }
-        public new bool IsValid()
-        {
-            return base.IsValid() &&
-                  !string.IsNullOrEmpty(FirstName) &&
-                  !string.IsNullOrEmpty(LastName) &&
-                  !string.IsNullOrEmpty(Email);
-        }
-        public override string Format()
-        {
-            return $"[{base.Format()}[{FirstName}][{LastName}][{Email}]";
-        }
-        public virtual void Parse(string record)
-        {
-            if (string.IsNullOrWhiteSpace(record))
-            {
-                throw new ArgumentException("Record cannot be null or empty.", nameof(record));
-            }
-            var parts = record.Trim('[', ']').Split(new[] { "][" }, StringSplitOptions.None);
-            if (parts.Length != 4)
-            {
-                throw new ArgumentException("Invalid record format.");
-            }
-            if (!Guid.TryParse(parts[0], out Guid id))
-            {
-                throw new FormatException("Invalid ID format.");
-            }
-            Id = id;
-            FirstName = parts[1];
-            LastName = parts[2];
-            Email = parts[3];
-        }
-    }
-    public sealed class Receptionist : Person
-    {
-        public string? Password { get; set; }
-        public Receptionist()
-        {
-            Password = string.Empty;
-        }
-        public Receptionist(Guid id, string firstname, string lastname, string email, string password)
-            : base(id, firstname, lastname, email)
-        {
-            Password = password;
-        }
-        public new bool IsValid()
-        {
-            return base.IsValid() &&
-                  !string.IsNullOrEmpty(Password);
-        }
-    }
-    public class Customer : Person
-    {
-        public string? PhoneNumber { get; set; }
-        public string? ApartmentNumber { get; set; }
-        public TimeSpan? StayTime { get; set; }
-        public DateTime? UntilDate { get; set; }
-        public Customer()
-        {
-            PhoneNumber = string.Empty;
-            ApartmentNumber = string.Empty;
-            StayTime = null;
-            UntilDate = new DateTime();
-        }
-        public Customer(Guid id, string firstname, string lastname, string email,
-            string phonenumber, string apartmentnumber, TimeSpan staytime, DateTime untildate)
-            : base(id, firstname, lastname, email)
-        {
-            PhoneNumber = phonenumber;
-            ApartmentNumber = apartmentnumber;
-            StayTime = staytime;
-            UntilDate = untildate;
-        }
-        public new bool IsValid()
-        {
-            return base.IsValid() &&
-                  !string.IsNullOrEmpty(PhoneNumber) &&
-                  !string.IsNullOrEmpty(ApartmentNumber) &&
-                   StayTime != null &&
-                   UntilDate != null;
-        }
-        public override sealed string Format()
-        {
-            return $"[{base.Format()}[{PhoneNumber}][{ApartmentNumber}][{StayTime}][{UntilDate.Value.ToUniversalTime()}]";
-        }
-        public override void Parse(string record)
-        {
-            if (string.IsNullOrWhiteSpace(record))
-            {
-                throw new ArgumentException("Record cannot be null or empty.", nameof(record));
-            }
-            var parts = record.Trim('[', ']').Split(new[] { "][" }, StringSplitOptions.None);
-            if (parts.Length != 5)
-            {
-                throw new ArgumentException("Invalid record format.");
-            }
-            if (!Guid.TryParse(parts[0], out Guid id))
-            {
-                throw new FormatException("Invalid ID format.");
-            }
-            Id = id;
-            PhoneNumber = parts[1];
-            ApartmentNumber = parts[2];
 
-            if (!TimeSpan.TryParse(parts[3], out TimeSpan staytime))
-            {
-                throw new FormatException("Invalid StayTime format.");
-            }
-            StayTime = staytime;
-
-            if (!DateTime.TryParse(parts[4], out DateTime untildate))
-            {
-                throw new FormatException("Invalid UntilDate format.");
-            }
-            UntilDate = untildate;
-        }
-
-    }
-    public static class FileManager
-    {
-        public static void Add(Entity entity)
+        private void SearchButton_Click(object sender, EventArgs e)
         {
-            if (entity == null)
+            try
             {
-                throw new ArgumentNullException(nameof(entity));
+                if (!DataManager.Entities.Any())
+                {
+                    return;
+                }
+                listView1.Items.Clear();
+                IEnumerable<IEntity> foundEntities = new List<IEntity>();
+                if (string.IsNullOrEmpty(SearchBar.Text))
+                {
+                    foundEntities = DataManager.Entities;
+                }
+                else
+                {
+                    foundEntities = DataManager.Search(SearchBar.Text);
+                }
+                foreach (IEntity entity in foundEntities)
+                {
+                    var customerEntity = entity as Customer;
+                    if (customerEntity != null)
+                    {
+                        var item = new ListViewItem(listView1.Items.Count + 1 + "");
+                        item.SubItems.Add(customerEntity.PhoneNumber);
+                        item.SubItems.Add(customerEntity.ApartmentNumber);
+                        item.SubItems.Add(customerEntity.StayTime.ToString());
+                        item.SubItems.Add(customerEntity.UntilDate != null
+                            ? customerEntity.UntilDate.Value.ToString("dd/MM/yyyy hh:mm tt")
+                            : string.Empty);
+                        item.SubItems.Add("0");
+                        item.SubItems.Add("0");
+                        listView1.Items.Add(item);
+                    }
+                }
             }
-            if (!entity.IsValid())
+            catch (Exception ex)
             {
-                throw new Exception("Entity is invalid");
-            }
-            var record = entity.Format();
-            using (var writer = new StreamWriter(entity.FileName, append: true))
-            {
-                writer.WriteLine(record);
+                MaterialMessageBox.Show(ex.Message);
             }
         }
     }
