@@ -46,6 +46,10 @@
             SearchBar = new MaterialSkin.Controls.MaterialTextBox2();
             label5 = new Label();
             SearchButton = new MaterialSkin.Controls.MaterialButton();
+            frombox = new MaterialSkin.Controls.MaterialTextBox2();
+            tobox = new MaterialSkin.Controls.MaterialTextBox2();
+            label6 = new Label();
+            filterbutton = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // listView1
@@ -53,7 +57,7 @@
             listView1.Columns.AddRange(new ColumnHeader[] { Id, Phone_Number, Apartment, Stays_for, Stays_Until });
             listView1.Location = new Point(6, 139);
             listView1.Name = "listView1";
-            listView1.Size = new Size(519, 290);
+            listView1.Size = new Size(550, 290);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -89,7 +93,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(531, 86);
+            label1.Location = new Point(562, 86);
             label1.Name = "label1";
             label1.Size = new Size(125, 15);
             label1.TabIndex = 1;
@@ -104,7 +108,7 @@
             phoneTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             phoneTextBox.HideSelection = true;
             phoneTextBox.LeadingIcon = null;
-            phoneTextBox.Location = new Point(531, 104);
+            phoneTextBox.Location = new Point(562, 104);
             phoneTextBox.MaxLength = 32767;
             phoneTextBox.MouseState = MaterialSkin.MouseState.OUT;
             phoneTextBox.Name = "phoneTextBox";
@@ -116,7 +120,7 @@
             phoneTextBox.SelectionLength = 0;
             phoneTextBox.SelectionStart = 0;
             phoneTextBox.ShortcutsEnabled = true;
-            phoneTextBox.Size = new Size(250, 48);
+            phoneTextBox.Size = new Size(219, 48);
             phoneTextBox.TabIndex = 2;
             phoneTextBox.TabStop = false;
             phoneTextBox.TextAlign = HorizontalAlignment.Left;
@@ -132,7 +136,7 @@
             apartmentTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             apartmentTextBox.HideSelection = true;
             apartmentTextBox.LeadingIcon = null;
-            apartmentTextBox.Location = new Point(531, 183);
+            apartmentTextBox.Location = new Point(562, 183);
             apartmentTextBox.MaxLength = 32767;
             apartmentTextBox.MouseState = MaterialSkin.MouseState.OUT;
             apartmentTextBox.Name = "apartmentTextBox";
@@ -144,7 +148,7 @@
             apartmentTextBox.SelectionLength = 0;
             apartmentTextBox.SelectionStart = 0;
             apartmentTextBox.ShortcutsEnabled = true;
-            apartmentTextBox.Size = new Size(250, 48);
+            apartmentTextBox.Size = new Size(219, 48);
             apartmentTextBox.TabIndex = 4;
             apartmentTextBox.TabStop = false;
             apartmentTextBox.TextAlign = HorizontalAlignment.Left;
@@ -154,7 +158,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(531, 165);
+            label2.Location = new Point(562, 165);
             label2.Name = "label2";
             label2.Size = new Size(105, 15);
             label2.TabIndex = 3;
@@ -169,7 +173,7 @@
             staysforTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             staysforTextBox.HideSelection = true;
             staysforTextBox.LeadingIcon = null;
-            staysforTextBox.Location = new Point(531, 263);
+            staysforTextBox.Location = new Point(562, 263);
             staysforTextBox.MaxLength = 32767;
             staysforTextBox.MouseState = MaterialSkin.MouseState.OUT;
             staysforTextBox.Name = "staysforTextBox";
@@ -181,7 +185,7 @@
             staysforTextBox.SelectionLength = 0;
             staysforTextBox.SelectionStart = 0;
             staysforTextBox.ShortcutsEnabled = true;
-            staysforTextBox.Size = new Size(250, 48);
+            staysforTextBox.Size = new Size(219, 48);
             staysforTextBox.TabIndex = 6;
             staysforTextBox.TabStop = false;
             staysforTextBox.TextAlign = HorizontalAlignment.Left;
@@ -191,7 +195,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(531, 245);
+            label3.Location = new Point(562, 245);
             label3.Name = "label3";
             label3.Size = new Size(87, 15);
             label3.TabIndex = 5;
@@ -200,7 +204,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(531, 325);
+            label4.Location = new Point(562, 325);
             label4.Name = "label4";
             label4.Size = new Size(61, 15);
             label4.TabIndex = 7;
@@ -210,7 +214,7 @@
             // 
             untilTextBox.CustomFormat = "dd/MM/yyyy hh:mm tt";
             untilTextBox.Format = DateTimePickerFormat.Custom;
-            untilTextBox.Location = new Point(531, 343);
+            untilTextBox.Location = new Point(562, 343);
             untilTextBox.Name = "untilTextBox";
             untilTextBox.Size = new Size(200, 23);
             untilTextBox.TabIndex = 8;
@@ -257,7 +261,7 @@
             SearchBar.SelectionLength = 0;
             SearchBar.SelectionStart = 0;
             SearchBar.ShortcutsEnabled = true;
-            SearchBar.Size = new Size(273, 48);
+            SearchBar.Size = new Size(169, 48);
             SearchBar.TabIndex = 10;
             SearchBar.TabStop = false;
             SearchBar.TextAlign = HorizontalAlignment.Left;
@@ -280,8 +284,8 @@
             SearchButton.Depth = 0;
             SearchButton.HighEmphasis = true;
             SearchButton.Icon = Properties.Resources.search_icon_png_11;
-            SearchButton.Location = new Point(285, 96);
-            SearchButton.Margin = new Padding(4, 4, 4, 4);
+            SearchButton.Location = new Point(182, 96);
+            SearchButton.Margin = new Padding(4);
             SearchButton.MouseState = MaterialSkin.MouseState.HOVER;
             SearchButton.Name = "SearchButton";
             SearchButton.NoAccentTextColor = Color.Empty;
@@ -292,11 +296,101 @@
             SearchButton.UseVisualStyleBackColor = true;
             SearchButton.Click += SearchButton_Click;
             // 
+            // frombox
+            // 
+            frombox.AnimateReadOnly = false;
+            frombox.BackgroundImageLayout = ImageLayout.None;
+            frombox.CharacterCasing = CharacterCasing.Normal;
+            frombox.Depth = 0;
+            frombox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            frombox.HideSelection = true;
+            frombox.LeadingIcon = null;
+            frombox.Location = new Point(264, 90);
+            frombox.MaxLength = 32767;
+            frombox.MouseState = MaterialSkin.MouseState.OUT;
+            frombox.Name = "frombox";
+            frombox.PasswordChar = '\0';
+            frombox.PrefixSuffixText = null;
+            frombox.ReadOnly = false;
+            frombox.RightToLeft = RightToLeft.No;
+            frombox.SelectedText = "";
+            frombox.SelectionLength = 0;
+            frombox.SelectionStart = 0;
+            frombox.ShortcutsEnabled = true;
+            frombox.Size = new Size(70, 48);
+            frombox.TabIndex = 13;
+            frombox.TabStop = false;
+            frombox.TextAlign = HorizontalAlignment.Left;
+            frombox.TrailingIcon = null;
+            frombox.UseSystemPasswordChar = false;
+            frombox.Click += materialTextBox21_Click;
+            // 
+            // tobox
+            // 
+            tobox.AnimateReadOnly = false;
+            tobox.BackgroundImageLayout = ImageLayout.None;
+            tobox.CharacterCasing = CharacterCasing.Normal;
+            tobox.Depth = 0;
+            tobox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            tobox.HideSelection = true;
+            tobox.LeadingIcon = null;
+            tobox.Location = new Point(358, 90);
+            tobox.MaxLength = 32767;
+            tobox.MouseState = MaterialSkin.MouseState.OUT;
+            tobox.Name = "tobox";
+            tobox.PasswordChar = '\0';
+            tobox.PrefixSuffixText = null;
+            tobox.ReadOnly = false;
+            tobox.RightToLeft = RightToLeft.No;
+            tobox.SelectedText = "";
+            tobox.SelectionLength = 0;
+            tobox.SelectionStart = 0;
+            tobox.ShortcutsEnabled = true;
+            tobox.Size = new Size(70, 48);
+            tobox.TabIndex = 14;
+            tobox.TabStop = false;
+            tobox.TextAlign = HorizontalAlignment.Left;
+            tobox.TrailingIcon = null;
+            tobox.UseSystemPasswordChar = false;
+            tobox.Click += materialTextBox21_Click_1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(340, 107);
+            label6.Name = "label6";
+            label6.Size = new Size(12, 15);
+            label6.TabIndex = 15;
+            label6.Text = "-";
+            // 
+            // filterbutton
+            // 
+            filterbutton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            filterbutton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            filterbutton.Depth = 0;
+            filterbutton.HighEmphasis = true;
+            filterbutton.Icon = Properties.Resources.filter_icon2;
+            filterbutton.Location = new Point(435, 96);
+            filterbutton.Margin = new Padding(4, 6, 4, 6);
+            filterbutton.MouseState = MaterialSkin.MouseState.HOVER;
+            filterbutton.Name = "filterbutton";
+            filterbutton.NoAccentTextColor = Color.Empty;
+            filterbutton.Size = new Size(64, 36);
+            filterbutton.TabIndex = 16;
+            filterbutton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            filterbutton.UseAccentColor = false;
+            filterbutton.UseVisualStyleBackColor = true;
+            filterbutton.Click += filterbutton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(filterbutton);
+            Controls.Add(label6);
+            Controls.Add(tobox);
+            Controls.Add(frombox);
             Controls.Add(SearchButton);
             Controls.Add(label5);
             Controls.Add(SearchBar);
@@ -337,5 +431,9 @@
         private MaterialSkin.Controls.MaterialTextBox2 SearchBar;
         private Label label5;
         private MaterialSkin.Controls.MaterialButton SearchButton;
+        private MaterialSkin.Controls.MaterialTextBox2 frombox;
+        private MaterialSkin.Controls.MaterialTextBox2 tobox;
+        private Label label6;
+        private MaterialSkin.Controls.MaterialButton filterbutton;
     }
 }

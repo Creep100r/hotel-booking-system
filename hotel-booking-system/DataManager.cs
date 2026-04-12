@@ -17,5 +17,15 @@
                 }
             }
         }
+        public static IEnumerable<IEntity> Filter(FilterDelegate filter)
+        {
+            foreach (var entity in Entities)
+            {
+                if (filter.Invoke(entity))
+                {
+                    yield return entity;
+                }
+            }
+        }
     }
 }
