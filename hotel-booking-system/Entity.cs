@@ -1,8 +1,8 @@
 ﻿namespace hotel_booking_system
 {
-    public class Entity
+    public abstract class Entity : IEntity
     {
-        public virtual string FileName { get; }
+        public virtual string FileName { get; } = string.Empty;
         public Guid Id { get; set; }
         public Entity()
         {
@@ -20,5 +20,7 @@
         {
             return "[" + Id.ToString() + "]";
         }
+        public abstract void Parse(string record);
+        public abstract bool Search(string searchString);
     }
 }

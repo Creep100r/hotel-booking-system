@@ -1,6 +1,6 @@
 ﻿namespace hotel_booking_system
 {
-    public class Person : Entity, IEntity
+    public class Person : Entity
     {
         public override string FileName => "Person.txt";
         public string? FirstName { get; set; }
@@ -29,7 +29,7 @@
         {
             return $"[{base.Format()}[{FirstName}][{LastName}][{Email}]";
         }
-        public virtual void Parse(string record)
+        public override void Parse(string record)
         {
             if (string.IsNullOrWhiteSpace(record))
             {
@@ -49,7 +49,7 @@
             LastName = parts[2];
             Email = parts[3];
         }
-        public bool Search(string searchString)
+        public override bool Search(string searchString)
         {
             return FirstName!.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
                    LastName!.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||

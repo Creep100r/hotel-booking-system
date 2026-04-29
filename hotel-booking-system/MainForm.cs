@@ -8,24 +8,37 @@ namespace hotel_booking_system
 {
     public partial class MainForm : MaterialForm
     {
+        private readonly DataManager<Customer> dataManager;
         public MainForm()
         {
             InitializeComponent();
+            dataManager = new DataManager<Customer>();
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-
             materialSkinManager.ColorScheme = new ColorScheme(
                 Primary.Blue400, Primary.Blue700,
                 Primary.Blue100, Accent.LightBlue200,
                 TextShade.WHITE);
-
+            var customers = FileManager.GetEntities<Customer>("Person.txt");
+            foreach (var customer in customers)
+            {
+                dataManager.Add(customer);
+                var item = new ListViewItem(listView1.Items.Count + 1 + "");
+                item.SubItems.Add(customer.PhoneNumber);
+                item.SubItems.Add(customer.ApartmentNumber);
+                item.SubItems.Add(customer.StayTime.ToString());
+                item.SubItems.Add(customer.UntilDate.ToString());
+                item.SubItems.Add("0");
+                item.SubItems.Add("0");
+                item.SubItems.Add(customer.Id.ToString());
+                listView1.Items.Add(item);
+            }
         }
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-
         private void addButton_Click(object sender, EventArgs e)
         {
             try
@@ -53,7 +66,7 @@ namespace hotel_booking_system
                     UntilDate = untildate
                 };
                 FileManager.Add(customer);
-                DataManager.Add(customer);
+                dataManager.Add(customer);
                 var item = new ListViewItem(listView1.Items.Count + 1 + "");
                 item.SubItems.Add(phonenumber);
                 item.SubItems.Add(apartmentnumber);
@@ -71,7 +84,7 @@ namespace hotel_booking_system
         {
             try
             {
-                if (!DataManager.Entities.Any())
+                if (!dataManager.Entities.Any())
                 {
                     return;
                 }
@@ -79,11 +92,11 @@ namespace hotel_booking_system
                 IEnumerable<IEntity> foundEntities = new List<IEntity>();
                 if (string.IsNullOrEmpty(SearchBar.Text))
                 {
-                    foundEntities = DataManager.Entities;
+                    foundEntities = dataManager.Entities;
                 }
                 else
                 {
-                    foundEntities = DataManager.Search(SearchBar.Text);
+                    foundEntities = dataManager.Search(SearchBar.Text);
                 }
                 foreach (IEntity entity in foundEntities)
                 {
@@ -123,20 +136,20 @@ namespace hotel_booking_system
         {
             try
             {
-                if (!DataManager.Entities.Any())
+                if (!dataManager.Entities.Any())
                 {
                     return;
                 }
                 listView1.Items.Clear();
-                IEnumerable <IEntity> filteredEntities = new List<IEntity>();
+                IEnumerable<IEntity> filteredEntities = new List<IEntity>();
                 if (string.IsNullOrEmpty(frombox.Text) ||
                     string.IsNullOrEmpty(tobox.Text))
                 {
-                    filteredEntities = DataManager.Entities;
+                    filteredEntities = dataManager.Entities;
                 }
                 else
                 {
-                    filteredEntities = DataManager.Filter(entity =>
+                    filteredEntities = dataManager.Filter(entity =>
                     {
                         TimeSpan? stayTimeFrom = null;
                         if (TimeSpan.TryParse(frombox.Text, out var stayTimeFromResult))
@@ -145,7 +158,7 @@ namespace hotel_booking_system
                         if (TimeSpan.TryParse(tobox.Text, out var stayTimeToResult))
                             stayTimeTo = stayTimeToResult;
 
-                        if (entity is Customer customer && customer.StayTime != null 
+                        if (entity is Customer customer && customer.StayTime != null
                         && stayTimeFrom != null && stayTimeTo != null)
                             return customer.StayTime >= stayTimeFrom && customer.StayTime <= stayTimeTo;
                         else
@@ -162,7 +175,7 @@ namespace hotel_booking_system
                             item.SubItems.Add(concertEntity.ApartmentNumber);
                             item.SubItems.Add(concertEntity.StayTime.ToString());
                             item.SubItems.Add(concertEntity.UntilDate != null
-                                ? concertEntity.UntilDate.Value.ToString("dd/MM/yyyy hh:mm tt") 
+                                ? concertEntity.UntilDate.Value.ToString("dd/MM/yyyy hh:mm tt")
                                 : string.Empty);
                             item.SubItems.Add("0");
                             item.SubItems.Add("0");
@@ -175,6 +188,16 @@ namespace hotel_booking_system
             {
                 MaterialMessageBox.Show(ex.Message);
             }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

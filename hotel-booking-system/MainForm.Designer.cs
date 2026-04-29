@@ -50,6 +50,10 @@
             tobox = new MaterialSkin.Controls.MaterialTextBox2();
             label6 = new Label();
             filterbutton = new MaterialSkin.Controls.MaterialButton();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            selectedItemTextBox = new TextBox();
             SuspendLayout();
             // 
             // listView1
@@ -382,11 +386,51 @@
             filterbutton.UseVisualStyleBackColor = true;
             filterbutton.Click += filterbutton_Click;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(264, 72);
+            label7.Name = "label7";
+            label7.Size = new Size(35, 15);
+            label7.TabIndex = 17;
+            label7.Text = "From";
+            label7.Click += label7_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(358, 72);
+            label8.Name = "label8";
+            label8.Size = new Size(20, 15);
+            label8.TabIndex = 18;
+            label8.Text = "To";
+            label8.Click += label8_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(6, 451);
+            label9.Name = "label9";
+            label9.Size = new Size(54, 15);
+            label9.TabIndex = 19;
+            label9.Text = "Selected:";
+            // 
+            // selectedItemTextBox
+            // 
+            selectedItemTextBox.Location = new Point(66, 448);
+            selectedItemTextBox.Name = "selectedItemTextBox";
+            selectedItemTextBox.Size = new Size(715, 23);
+            selectedItemTextBox.TabIndex = 20;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 523);
+            Controls.Add(selectedItemTextBox);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label7);
             Controls.Add(filterbutton);
             Controls.Add(label6);
             Controls.Add(tobox);
@@ -435,5 +479,9 @@
         private MaterialSkin.Controls.MaterialTextBox2 tobox;
         private Label label6;
         private MaterialSkin.Controls.MaterialButton filterbutton;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private TextBox selectedItemTextBox;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace hotel_booking_system
 {
-    public class Customer : Person, IEntity
+    public class Customer : Person
     {
         public string? PhoneNumber { get; set; }
         public string? ApartmentNumber { get; set; }
@@ -65,7 +65,7 @@
             }
             UntilDate = untildate;
         }
-        public bool Search(string searchString)
+        public override bool Search(string searchString)
         {
             return PhoneNumber!.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
                    ApartmentNumber!.Contains(searchString, StringComparison.OrdinalIgnoreCase);
