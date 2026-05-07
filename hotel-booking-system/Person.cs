@@ -27,7 +27,7 @@
         }
         public override string Format()
         {
-            return $"[{base.Format()}[{FirstName}][{LastName}][{Email}]";
+            return $"{base.Format()}[{FirstName}][{LastName}][{Email}]";
         }
         public override void Parse(string record)
         {

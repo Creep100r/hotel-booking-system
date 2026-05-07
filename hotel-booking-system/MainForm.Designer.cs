@@ -34,6 +34,7 @@
             Apartment = new ColumnHeader();
             Stays_for = new ColumnHeader();
             Stays_Until = new ColumnHeader();
+            idColumn = new ColumnHeader();
             label1 = new Label();
             phoneTextBox = new MaterialSkin.Controls.MaterialTextBox2();
             apartmentTextBox = new MaterialSkin.Controls.MaterialTextBox2();
@@ -58,13 +59,15 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { Id, Phone_Number, Apartment, Stays_for, Stays_Until });
+            listView1.Columns.AddRange(new ColumnHeader[] { Id, Phone_Number, Apartment, Stays_for, Stays_Until, idColumn });
+            listView1.FullRowSelect = true;
             listView1.Location = new Point(6, 139);
             listView1.Name = "listView1";
             listView1.Size = new Size(550, 290);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // Id
             // 
@@ -93,6 +96,10 @@
             Stays_Until.Text = "Stays_Until";
             Stays_Until.TextAlign = HorizontalAlignment.Center;
             Stays_Until.Width = 100;
+            // 
+            // idColumn
+            // 
+            idColumn.Width = 0;
             // 
             // label1
             // 
@@ -417,6 +424,7 @@
             // 
             // selectedItemTextBox
             // 
+            selectedItemTextBox.Enabled = false;
             selectedItemTextBox.Location = new Point(66, 448);
             selectedItemTextBox.Name = "selectedItemTextBox";
             selectedItemTextBox.Size = new Size(715, 23);
@@ -483,5 +491,6 @@
         private Label label8;
         private Label label9;
         private TextBox selectedItemTextBox;
+        private ColumnHeader idColumn;
     }
 }

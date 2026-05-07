@@ -32,7 +32,7 @@
         }
         public override sealed string Format()
         {
-            return $"[{base.Format()}[{PhoneNumber}][{ApartmentNumber}][{StayTime}][{UntilDate.Value.ToUniversalTime()}]";
+            return $"{base.Format()}[{PhoneNumber}][{ApartmentNumber}][{StayTime}][{UntilDate.Value.ToUniversalTime()}]";
         }
         public override void Parse(string record)
         {
@@ -41,7 +41,7 @@
                 throw new ArgumentException("Record cannot be null or empty.", nameof(record));
             }
             var parts = record.Trim('[', ']').Split(new[] { "][" }, StringSplitOptions.None);
-            if (parts.Length != 5)
+            if (parts.Length != 8)
             {
                 throw new ArgumentException("Invalid record format.");
             }
@@ -50,16 +50,19 @@
                 throw new FormatException("Invalid ID format.");
             }
             Id = id;
-            PhoneNumber = parts[1];
-            ApartmentNumber = parts[2];
+            FirstName = parts[1];
+            LastName = parts[2];
+            Email = parts[3];
+            PhoneNumber = parts[4];
+            ApartmentNumber = parts[5];
 
-            if (!TimeSpan.TryParse(parts[3], out TimeSpan staytime))
+            if (!TimeSpan.TryParse(parts[6], out TimeSpan staytime))
             {
                 throw new FormatException("Invalid StayTime format.");
             }
             StayTime = staytime;
 
-            if (!DateTime.TryParse(parts[4], out DateTime untildate))
+            if (!DateTime.TryParse(parts[7], out DateTime untildate))
             {
                 throw new FormatException("Invalid UntilDate format.");
             }

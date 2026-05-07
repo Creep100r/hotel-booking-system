@@ -29,8 +29,6 @@ namespace hotel_booking_system
                 item.SubItems.Add(customer.ApartmentNumber);
                 item.SubItems.Add(customer.StayTime.ToString());
                 item.SubItems.Add(customer.UntilDate.ToString());
-                item.SubItems.Add("0");
-                item.SubItems.Add("0");
                 item.SubItems.Add(customer.Id.ToString());
                 listView1.Items.Add(item);
             }
@@ -72,6 +70,7 @@ namespace hotel_booking_system
                 item.SubItems.Add(apartmentnumber);
                 item.SubItems.Add(staysforTextBox.Text);
                 item.SubItems.Add(untilTextBox.Text);
+                item.SubItems.Add(customer.Id.ToString());
                 listView1.Items.Add(item);
             }
             catch (Exception ex)
@@ -110,8 +109,7 @@ namespace hotel_booking_system
                         item.SubItems.Add(customerEntity.UntilDate != null
                             ? customerEntity.UntilDate.Value.ToString("dd/MM/yyyy hh:mm tt")
                             : string.Empty);
-                        item.SubItems.Add("0");
-                        item.SubItems.Add("0");
+                        item.SubItems.Add(customerEntity.Id.ToString());
                         listView1.Items.Add(item);
                     }
                 }
@@ -168,17 +166,16 @@ namespace hotel_booking_system
                     });
                     foreach (IEntity entity in filteredEntities)
                     {
-                        if (entity is Customer concertEntity)
+                        if (entity is Customer customerEntity)
                         {
                             var item = new ListViewItem(listView1.Items.Count + 1 + "");
-                            item.SubItems.Add(concertEntity.PhoneNumber);
-                            item.SubItems.Add(concertEntity.ApartmentNumber);
-                            item.SubItems.Add(concertEntity.StayTime.ToString());
-                            item.SubItems.Add(concertEntity.UntilDate != null
-                                ? concertEntity.UntilDate.Value.ToString("dd/MM/yyyy hh:mm tt")
+                            item.SubItems.Add(customerEntity.PhoneNumber);
+                            item.SubItems.Add(customerEntity.ApartmentNumber);
+                            item.SubItems.Add(customerEntity.StayTime.ToString());
+                            item.SubItems.Add(customerEntity.UntilDate != null
+                                ? customerEntity.UntilDate.Value.ToString("dd/MM/yyyy hh:mm tt")
                                 : string.Empty);
-                            item.SubItems.Add("0");
-                            item.SubItems.Add("0");
+                            item.SubItems.Add(customerEntity.Id.ToString());
                             listView1.Items.Add(item);
                         }
                     }
@@ -198,6 +195,25 @@ namespace hotel_booking_system
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int selectedIndex = listView1.SelectedIndices[0];
+                string selectedItemText = listView1.SelectedItems[0].SubItems[5].Text;
+                var id = Guid.Parse(selectedItemText);
+                IEntity? entity = dataManager[id];
+                if (entity != null)
+                {
+                    if (entity is Customer customer)
+                    {
+                        var formattedText = customer.Format();
+                        selectedItemTextBox.Text = formattedText;
+                    }
+                }
+            }
         }
     }
 }
