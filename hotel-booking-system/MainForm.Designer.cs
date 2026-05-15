@@ -55,6 +55,16 @@
             label8 = new Label();
             label9 = new Label();
             selectedItemTextBox = new TextBox();
+            sortBtn = new MaterialSkin.Controls.MaterialButton();
+            prevBtn = new MaterialSkin.Controls.MaterialButton();
+            nextBtn = new MaterialSkin.Controls.MaterialButton();
+            pageNumTextBox = new TextBox();
+            countTextBox = new TextBox();
+            maxStayTimeTextBox = new TextBox();
+            label10 = new Label();
+            label11 = new Label();
+            loadAnotherSourseButton = new MaterialSkin.Controls.MaterialButton();
+            fileDialog = new OpenFileDialog();
             SuspendLayout();
             // 
             // listView1
@@ -63,7 +73,7 @@
             listView1.FullRowSelect = true;
             listView1.Location = new Point(6, 139);
             listView1.Name = "listView1";
-            listView1.Size = new Size(550, 290);
+            listView1.Size = new Size(597, 290);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -104,7 +114,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(562, 86);
+            label1.Location = new Point(620, 86);
             label1.Name = "label1";
             label1.Size = new Size(125, 15);
             label1.TabIndex = 1;
@@ -119,7 +129,7 @@
             phoneTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             phoneTextBox.HideSelection = true;
             phoneTextBox.LeadingIcon = null;
-            phoneTextBox.Location = new Point(562, 104);
+            phoneTextBox.Location = new Point(620, 104);
             phoneTextBox.MaxLength = 32767;
             phoneTextBox.MouseState = MaterialSkin.MouseState.OUT;
             phoneTextBox.Name = "phoneTextBox";
@@ -147,7 +157,7 @@
             apartmentTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             apartmentTextBox.HideSelection = true;
             apartmentTextBox.LeadingIcon = null;
-            apartmentTextBox.Location = new Point(562, 183);
+            apartmentTextBox.Location = new Point(620, 183);
             apartmentTextBox.MaxLength = 32767;
             apartmentTextBox.MouseState = MaterialSkin.MouseState.OUT;
             apartmentTextBox.Name = "apartmentTextBox";
@@ -169,7 +179,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(562, 165);
+            label2.Location = new Point(620, 165);
             label2.Name = "label2";
             label2.Size = new Size(105, 15);
             label2.TabIndex = 3;
@@ -184,7 +194,7 @@
             staysforTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             staysforTextBox.HideSelection = true;
             staysforTextBox.LeadingIcon = null;
-            staysforTextBox.Location = new Point(562, 263);
+            staysforTextBox.Location = new Point(620, 263);
             staysforTextBox.MaxLength = 32767;
             staysforTextBox.MouseState = MaterialSkin.MouseState.OUT;
             staysforTextBox.Name = "staysforTextBox";
@@ -206,7 +216,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(562, 245);
+            label3.Location = new Point(620, 245);
             label3.Name = "label3";
             label3.Size = new Size(87, 15);
             label3.TabIndex = 5;
@@ -215,7 +225,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(562, 325);
+            label4.Location = new Point(620, 325);
             label4.Name = "label4";
             label4.Size = new Size(61, 15);
             label4.TabIndex = 7;
@@ -223,12 +233,13 @@
             // 
             // untilTextBox
             // 
-            untilTextBox.CustomFormat = "dd/MM/yyyy hh:mm tt";
+            untilTextBox.CustomFormat = "dd/MM/yyyy";
             untilTextBox.Format = DateTimePickerFormat.Custom;
-            untilTextBox.Location = new Point(562, 343);
+            untilTextBox.Location = new Point(620, 343);
             untilTextBox.Name = "untilTextBox";
-            untilTextBox.Size = new Size(200, 23);
+            untilTextBox.Size = new Size(219, 23);
             untilTextBox.TabIndex = 8;
+            untilTextBox.Value = new DateTime(2026, 5, 15, 0, 0, 0, 0);
             // 
             // addButton
             // 
@@ -237,7 +248,7 @@
             addButton.Depth = 0;
             addButton.HighEmphasis = true;
             addButton.Icon = null;
-            addButton.Location = new Point(667, 393);
+            addButton.Location = new Point(620, 393);
             addButton.Margin = new Padding(4, 6, 4, 6);
             addButton.MouseState = MaterialSkin.MouseState.HOVER;
             addButton.Name = "addButton";
@@ -334,7 +345,6 @@
             frombox.TextAlign = HorizontalAlignment.Left;
             frombox.TrailingIcon = null;
             frombox.UseSystemPasswordChar = false;
-            frombox.Click += materialTextBox21_Click;
             // 
             // tobox
             // 
@@ -363,7 +373,6 @@
             tobox.TextAlign = HorizontalAlignment.Left;
             tobox.TrailingIcon = null;
             tobox.UseSystemPasswordChar = false;
-            tobox.Click += materialTextBox21_Click_1;
             // 
             // label6
             // 
@@ -401,7 +410,6 @@
             label7.Size = new Size(35, 15);
             label7.TabIndex = 17;
             label7.Text = "From";
-            label7.Click += label7_Click;
             // 
             // label8
             // 
@@ -411,12 +419,11 @@
             label8.Size = new Size(20, 15);
             label8.TabIndex = 18;
             label8.Text = "To";
-            label8.Click += label8_Click;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(6, 451);
+            label9.Location = new Point(6, 497);
             label9.Name = "label9";
             label9.Size = new Size(54, 15);
             label9.TabIndex = 19;
@@ -425,16 +432,148 @@
             // selectedItemTextBox
             // 
             selectedItemTextBox.Enabled = false;
-            selectedItemTextBox.Location = new Point(66, 448);
+            selectedItemTextBox.Location = new Point(66, 494);
             selectedItemTextBox.Name = "selectedItemTextBox";
-            selectedItemTextBox.Size = new Size(715, 23);
+            selectedItemTextBox.Size = new Size(537, 23);
             selectedItemTextBox.TabIndex = 20;
+            // 
+            // sortBtn
+            // 
+            sortBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            sortBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            sortBtn.Depth = 0;
+            sortBtn.HighEmphasis = true;
+            sortBtn.Icon = null;
+            sortBtn.Location = new Point(539, 96);
+            sortBtn.Margin = new Padding(4, 6, 4, 6);
+            sortBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            sortBtn.Name = "sortBtn";
+            sortBtn.NoAccentTextColor = Color.Empty;
+            sortBtn.Size = new Size(64, 36);
+            sortBtn.TabIndex = 21;
+            sortBtn.Text = "SORT";
+            sortBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            sortBtn.UseAccentColor = false;
+            sortBtn.UseVisualStyleBackColor = true;
+            sortBtn.Click += sortBtn1_Click;
+            // 
+            // prevBtn
+            // 
+            prevBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            prevBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            prevBtn.Depth = 0;
+            prevBtn.HighEmphasis = true;
+            prevBtn.Icon = null;
+            prevBtn.Location = new Point(404, 447);
+            prevBtn.Margin = new Padding(4, 6, 4, 6);
+            prevBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            prevBtn.Name = "prevBtn";
+            prevBtn.NoAccentTextColor = Color.Empty;
+            prevBtn.Size = new Size(64, 36);
+            prevBtn.TabIndex = 22;
+            prevBtn.Text = "Prev";
+            prevBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            prevBtn.UseAccentColor = false;
+            prevBtn.UseVisualStyleBackColor = true;
+            prevBtn.Click += prevBtn_Click;
+            // 
+            // nextBtn
+            // 
+            nextBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            nextBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            nextBtn.Depth = 0;
+            nextBtn.HighEmphasis = true;
+            nextBtn.Icon = null;
+            nextBtn.Location = new Point(539, 447);
+            nextBtn.Margin = new Padding(4, 6, 4, 6);
+            nextBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            nextBtn.Name = "nextBtn";
+            nextBtn.NoAccentTextColor = Color.Empty;
+            nextBtn.Size = new Size(64, 36);
+            nextBtn.TabIndex = 23;
+            nextBtn.Text = "Next";
+            nextBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            nextBtn.UseAccentColor = false;
+            nextBtn.UseVisualStyleBackColor = true;
+            nextBtn.Click += nextBtn_Click;
+            // 
+            // pageNumTextBox
+            // 
+            pageNumTextBox.Enabled = false;
+            pageNumTextBox.Location = new Point(484, 455);
+            pageNumTextBox.Name = "pageNumTextBox";
+            pageNumTextBox.Size = new Size(38, 23);
+            pageNumTextBox.TabIndex = 24;
+            // 
+            // countTextBox
+            // 
+            countTextBox.Enabled = false;
+            countTextBox.Location = new Point(620, 494);
+            countTextBox.Name = "countTextBox";
+            countTextBox.Size = new Size(50, 23);
+            countTextBox.TabIndex = 25;
+            // 
+            // maxStayTimeTextBox
+            // 
+            maxStayTimeTextBox.Enabled = false;
+            maxStayTimeTextBox.Location = new Point(692, 494);
+            maxStayTimeTextBox.Name = "maxStayTimeTextBox";
+            maxStayTimeTextBox.Size = new Size(92, 23);
+            maxStayTimeTextBox.TabIndex = 26;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(620, 476);
+            label10.Name = "label10";
+            label10.Size = new Size(43, 15);
+            label10.TabIndex = 27;
+            label10.Text = "Count:";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(692, 476);
+            label11.Name = "label11";
+            label11.Size = new Size(83, 15);
+            label11.TabIndex = 28;
+            label11.Text = "Max stay time:";
+            // 
+            // loadAnotherSourseButton
+            // 
+            loadAnotherSourseButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            loadAnotherSourseButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            loadAnotherSourseButton.Depth = 0;
+            loadAnotherSourseButton.DialogResult = DialogResult.OK;
+            loadAnotherSourseButton.HighEmphasis = true;
+            loadAnotherSourseButton.Icon = null;
+            loadAnotherSourseButton.Location = new Point(66, 447);
+            loadAnotherSourseButton.Margin = new Padding(4, 6, 4, 6);
+            loadAnotherSourseButton.MouseState = MaterialSkin.MouseState.HOVER;
+            loadAnotherSourseButton.Name = "loadAnotherSourseButton";
+            loadAnotherSourseButton.NoAccentTextColor = Color.Empty;
+            loadAnotherSourseButton.Size = new Size(91, 36);
+            loadAnotherSourseButton.TabIndex = 29;
+            loadAnotherSourseButton.Text = "Load file";
+            loadAnotherSourseButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            loadAnotherSourseButton.UseAccentColor = false;
+            loadAnotherSourseButton.UseVisualStyleBackColor = true;
+            loadAnotherSourseButton.Click += loadAnotherSourseButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 523);
+            ClientSize = new Size(845, 523);
+            Controls.Add(loadAnotherSourseButton);
+            Controls.Add(label11);
+            Controls.Add(label10);
+            Controls.Add(maxStayTimeTextBox);
+            Controls.Add(countTextBox);
+            Controls.Add(pageNumTextBox);
+            Controls.Add(nextBtn);
+            Controls.Add(prevBtn);
+            Controls.Add(sortBtn);
             Controls.Add(selectedItemTextBox);
             Controls.Add(label9);
             Controls.Add(label8);
@@ -458,7 +597,6 @@
             Controls.Add(listView1);
             Name = "MainForm";
             Text = "Apartment Booking";
-            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -492,5 +630,15 @@
         private Label label9;
         private TextBox selectedItemTextBox;
         private ColumnHeader idColumn;
+        private MaterialSkin.Controls.MaterialButton sortBtn;
+        private MaterialSkin.Controls.MaterialButton prevBtn;
+        private MaterialSkin.Controls.MaterialButton nextBtn;
+        private TextBox pageNumTextBox;
+        private TextBox countTextBox;
+        private TextBox maxStayTimeTextBox;
+        private Label label10;
+        private Label label11;
+        private MaterialSkin.Controls.MaterialButton loadAnotherSourseButton;
+        private OpenFileDialog fileDialog;
     }
 }

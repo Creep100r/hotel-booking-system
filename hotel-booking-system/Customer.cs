@@ -14,7 +14,7 @@
             UntilDate = new DateTime();
         }
         public Customer(Guid id, string firstname, string lastname, string email,
-            string phonenumber, string apartmentnumber, TimeSpan staytime, DateTime untildate)
+            string phonenumber, string apartmentnumber, TimeSpan? staytime, DateTime? untildate)
             : base(id, firstname, lastname, email)
         {
             PhoneNumber = phonenumber;
