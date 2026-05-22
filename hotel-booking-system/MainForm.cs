@@ -1,10 +1,13 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Security.Principal;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Diagnostics;
+using System.IO;
 
 namespace hotel_booking_system
 {
@@ -41,7 +44,6 @@ namespace hotel_booking_system
                 listView1.Items.Add(item);
             }
         }
-        
         private void addButton_Click(object sender, EventArgs e)
         {
             try
@@ -56,8 +58,7 @@ namespace hotel_booking_system
                 {
                     staytime = staytimeResult;
                 }
-                //var untildate = DateTime.Now;
-                var untildate = untilTextBox.Value.Date; //<=====
+                var untildate = untilTextBox.Value.Date;
                 if (DateTime.TryParseExact(untilTextBox.Text, "dd/MM/yyyy",
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out var untildateResult))
                 {
@@ -74,6 +75,20 @@ namespace hotel_booking_system
                 item.SubItems.Add(untildate.ToString("dd/MM/yyyy"));
                 item.SubItems.Add(customer.Id.ToString());
                 listView1.Items.Add(item);
+                //ADD TO DATABASE
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    Customer dbCustomer = new Customer
+                    {
+                        Id = id,
+                        PhoneNumber = phonenumber,
+                        ApartmentNumber = apartmentnumber,
+                        StayTime = staytime,
+                        UntilDate = untildate,
+                    };
+                    db.Customers.AddRange(dbCustomer);
+                    db.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -201,10 +216,11 @@ namespace hotel_booking_system
                 var id = Guid.Parse(selectedItemText);
                 var data = dataManager.Entities
                     .Where(x => x.Id == id)
-                    .Select(x => x.PhoneNumber + " " + x.ApartmentNumber + " " + x.StayTime.ToString() + " " + x.UntilDate.ToString())
+                    .Select(x => x.PhoneNumber + "/" + x.ApartmentNumber + "/" + x.StayTime.ToString() + "/" + x.UntilDate.ToString() + "/" + x.Id)
                     .FirstOrDefault();
                 if (!string.IsNullOrEmpty(data))
                 {
+                    dataReserveBox.Text = data;
                     selectedItemTextBox.Text = data;
                 }
             }
@@ -299,6 +315,166 @@ namespace hotel_booking_system
                     listView1.Items.Add(item);
                 });
                 CalculateStatistics();
+            }
+        }
+
+        private void showDataBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                if (!string.IsNullOrWhiteSpace(idBox.Text))
+                {
+                    if (!string.IsNullOrEmpty(selectColBox.Text))
+                    {
+                        columnReserveBox.Text = selectColBox.Text;
+                    }
+                    if (Guid.TryParse(idBox.Text, out var id))
+                    {
+                        var data = string.Empty;
+                        if (selectColBox.Text == "Phone Number")
+                        {
+                            data = dataManager.Entities
+                                .Where(x => x.Id == id)
+                                .Select(x => x.PhoneNumber)
+                                .FirstOrDefault();
+                        }
+                        else if (selectColBox.Text == "Apartment")
+                        {
+                            data = dataManager.Entities
+                                .Where(x => x.Id == id)
+                                .Select(x => x.ApartmentNumber)
+                                .FirstOrDefault();
+                        }
+                        else if (selectColBox.Text == "Stays For")
+                        {
+                            data = dataManager.Entities
+                                .Where(x => x.Id == id)
+                                .Select(x => x.StayTime.ToString())
+                                .FirstOrDefault();
+                        }
+                        else if (selectColBox.Text == "Stays Until")
+                        {
+                            data = dataManager.Entities
+                                .Where(x => x.Id == id)
+                                .Select(x => x.UntilDate.ToString())
+                                .FirstOrDefault();
+                        }
+                        if (!string.IsNullOrEmpty(data))
+                        {
+                            dataBox.Text = data;
+                        }
+                    }
+                    else
+                    {
+                        MaterialMessageBox.Show("Invalid GUID format.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MaterialMessageBox.Show(ex.Message);
+            }
+        }
+        private void updateBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dataReservebox = dataReserveBox.Text;
+                string[] parts = dataReservebox.Split('/');
+                var phonenumber = parts[0];
+                if (columnReserveBox.Text == "Phone Number")
+                {
+                    phonenumber = dataBox.Text;
+                }
+                var apartmentnumber = parts[1];
+                if (columnReserveBox.Text == "Apartment")
+                {
+                    apartmentnumber = dataBox.Text;
+                }
+                var staytimeParse = parts[2];
+                if (columnReserveBox.Text == "Stays For")
+                {
+                    staytimeParse = dataBox.Text;
+                }
+                TimeSpan? staytime = null;
+                if (TimeSpan.TryParse(staytimeParse, out var stResult))
+                    staytime = stResult;
+                var untildateParse = parts[3];
+                if (columnReserveBox.Text == "Stays Until")
+                {
+                    untildateParse = dataBox.Text;
+                }
+                DateTime untildate = DateTime.Now;
+                if (DateTime.TryParse(untildateParse, out var udResult))
+                    untildate = udResult;
+                var idParse = parts[4];
+                var id = Guid.Parse(idParse);
+                
+                var firstname = string.Empty;
+                var lastname = string.Empty;
+                var email = string.Empty;
+                var customer = new Customer(id, firstname, lastname, email, phonenumber, apartmentnumber, staytime, untildate);
+                FileManager.Add(customer);
+                dataManager.Add(customer);
+                //UPDATE LIST
+                bool updated = false;
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    if (listView1.Items[i].SubItems.Count > 5 &&
+                        listView1.Items[i].SubItems[5].Text == customer.Id.ToString())
+                    {
+                        listView1.Items[i].SubItems[1].Text = phonenumber;
+                        listView1.Items[i].SubItems[2].Text = apartmentnumber;
+                        listView1.Items[i].SubItems[3].Text = staytimeParse;
+                        listView1.Items[i].SubItems[4].Text = untildateParse;
+                        updated = true;
+                        break;
+                    }
+                }
+                if (!updated)//if false
+                {
+                    var item = new ListViewItem(listView1.Items.Count + 1 + "");
+                    item.SubItems.Add(phonenumber);
+                    item.SubItems.Add(apartmentnumber);
+                    item.SubItems.Add(staytimeParse);
+                    item.SubItems.Add(untildateParse);
+                    item.SubItems.Add(customer.Id.ToString());
+                    listView1.Items.Add(item);
+                }
+                //DELETE OLD ROW FROM TEXT FILE
+                //try
+                //{
+                //    
+                //}
+                //catch (Exception ex)
+                //{
+                //    MaterialMessageBox.Show(ex.Message);
+                //}
+                //UPDATE DATABASE
+                try
+                {
+                    using (ApplicationContext db = new ApplicationContext())
+                    {
+                        var dbCustomer = db.Customers.FirstOrDefault(c => c.Id == id);
+                        if (dbCustomer != null)
+                        {
+                            dbCustomer.PhoneNumber = phonenumber;
+                            dbCustomer.ApartmentNumber = apartmentnumber;
+                            dbCustomer.StayTime = staytime;
+                            dbCustomer.UntilDate = untildate;
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.Write(ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MaterialMessageBox.Show(ex.Message);
             }
         }
     }

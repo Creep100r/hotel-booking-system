@@ -65,6 +65,16 @@
             label11 = new Label();
             loadAnotherSourseButton = new MaterialSkin.Controls.MaterialButton();
             fileDialog = new OpenFileDialog();
+            dataBox = new TextBox();
+            updateBtn = new MaterialSkin.Controls.MaterialButton();
+            selectColBox = new ComboBox();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
+            showDataBtn = new MaterialSkin.Controls.MaterialButton();
+            idBox = new TextBox();
+            dataReserveBox = new TextBox();
+            columnReserveBox = new TextBox();
             SuspendLayout();
             // 
             // listView1
@@ -73,7 +83,7 @@
             listView1.FullRowSelect = true;
             listView1.Location = new Point(6, 139);
             listView1.Name = "listView1";
-            listView1.Size = new Size(597, 290);
+            listView1.Size = new Size(657, 290);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -94,12 +104,13 @@
             // 
             Apartment.Text = "Apartment";
             Apartment.TextAlign = HorizontalAlignment.Center;
-            Apartment.Width = 70;
+            Apartment.Width = 80;
             // 
             // Stays_for
             // 
             Stays_for.Text = "Stays for";
             Stays_for.TextAlign = HorizontalAlignment.Center;
+            Stays_for.Width = 90;
             // 
             // Stays_Until
             // 
@@ -109,12 +120,13 @@
             // 
             // idColumn
             // 
+            idColumn.Text = "Id";
             idColumn.Width = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(620, 86);
+            label1.Location = new Point(670, 78);
             label1.Name = "label1";
             label1.Size = new Size(125, 15);
             label1.TabIndex = 1;
@@ -129,7 +141,7 @@
             phoneTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             phoneTextBox.HideSelection = true;
             phoneTextBox.LeadingIcon = null;
-            phoneTextBox.Location = new Point(620, 104);
+            phoneTextBox.Location = new Point(670, 96);
             phoneTextBox.MaxLength = 32767;
             phoneTextBox.MouseState = MaterialSkin.MouseState.OUT;
             phoneTextBox.Name = "phoneTextBox";
@@ -157,7 +169,7 @@
             apartmentTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             apartmentTextBox.HideSelection = true;
             apartmentTextBox.LeadingIcon = null;
-            apartmentTextBox.Location = new Point(620, 183);
+            apartmentTextBox.Location = new Point(670, 165);
             apartmentTextBox.MaxLength = 32767;
             apartmentTextBox.MouseState = MaterialSkin.MouseState.OUT;
             apartmentTextBox.Name = "apartmentTextBox";
@@ -179,7 +191,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(620, 165);
+            label2.Location = new Point(670, 147);
             label2.Name = "label2";
             label2.Size = new Size(105, 15);
             label2.TabIndex = 3;
@@ -194,7 +206,7 @@
             staysforTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             staysforTextBox.HideSelection = true;
             staysforTextBox.LeadingIcon = null;
-            staysforTextBox.Location = new Point(620, 263);
+            staysforTextBox.Location = new Point(670, 234);
             staysforTextBox.MaxLength = 32767;
             staysforTextBox.MouseState = MaterialSkin.MouseState.OUT;
             staysforTextBox.Name = "staysforTextBox";
@@ -216,7 +228,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(620, 245);
+            label3.Location = new Point(670, 216);
             label3.Name = "label3";
             label3.Size = new Size(87, 15);
             label3.TabIndex = 5;
@@ -225,7 +237,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(620, 325);
+            label4.Location = new Point(670, 285);
             label4.Name = "label4";
             label4.Size = new Size(61, 15);
             label4.TabIndex = 7;
@@ -235,7 +247,7 @@
             // 
             untilTextBox.CustomFormat = "dd/MM/yyyy";
             untilTextBox.Format = DateTimePickerFormat.Custom;
-            untilTextBox.Location = new Point(620, 343);
+            untilTextBox.Location = new Point(670, 303);
             untilTextBox.Name = "untilTextBox";
             untilTextBox.Size = new Size(219, 23);
             untilTextBox.TabIndex = 8;
@@ -248,7 +260,7 @@
             addButton.Depth = 0;
             addButton.HighEmphasis = true;
             addButton.Icon = null;
-            addButton.Location = new Point(620, 393);
+            addButton.Location = new Point(670, 393);
             addButton.Margin = new Padding(4, 6, 4, 6);
             addButton.MouseState = MaterialSkin.MouseState.HOVER;
             addButton.Name = "addButton";
@@ -327,7 +339,7 @@
             frombox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             frombox.HideSelection = true;
             frombox.LeadingIcon = null;
-            frombox.Location = new Point(264, 90);
+            frombox.Location = new Point(304, 90);
             frombox.MaxLength = 32767;
             frombox.MouseState = MaterialSkin.MouseState.OUT;
             frombox.Name = "frombox";
@@ -355,7 +367,7 @@
             tobox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             tobox.HideSelection = true;
             tobox.LeadingIcon = null;
-            tobox.Location = new Point(358, 90);
+            tobox.Location = new Point(398, 90);
             tobox.MaxLength = 32767;
             tobox.MouseState = MaterialSkin.MouseState.OUT;
             tobox.Name = "tobox";
@@ -377,7 +389,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(340, 107);
+            label6.Location = new Point(380, 107);
             label6.Name = "label6";
             label6.Size = new Size(12, 15);
             label6.TabIndex = 15;
@@ -390,7 +402,7 @@
             filterbutton.Depth = 0;
             filterbutton.HighEmphasis = true;
             filterbutton.Icon = Properties.Resources.filter_icon2;
-            filterbutton.Location = new Point(435, 96);
+            filterbutton.Location = new Point(475, 96);
             filterbutton.Margin = new Padding(4, 6, 4, 6);
             filterbutton.MouseState = MaterialSkin.MouseState.HOVER;
             filterbutton.Name = "filterbutton";
@@ -405,7 +417,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(264, 72);
+            label7.Location = new Point(304, 72);
             label7.Name = "label7";
             label7.Size = new Size(35, 15);
             label7.TabIndex = 17;
@@ -414,7 +426,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(358, 72);
+            label8.Location = new Point(398, 72);
             label8.Name = "label8";
             label8.Size = new Size(20, 15);
             label8.TabIndex = 18;
@@ -423,7 +435,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(6, 497);
+            label9.Location = new Point(5, 591);
             label9.Name = "label9";
             label9.Size = new Size(54, 15);
             label9.TabIndex = 19;
@@ -431,10 +443,9 @@
             // 
             // selectedItemTextBox
             // 
-            selectedItemTextBox.Enabled = false;
-            selectedItemTextBox.Location = new Point(66, 494);
+            selectedItemTextBox.Location = new Point(66, 588);
             selectedItemTextBox.Name = "selectedItemTextBox";
-            selectedItemTextBox.Size = new Size(537, 23);
+            selectedItemTextBox.Size = new Size(597, 23);
             selectedItemTextBox.TabIndex = 20;
             // 
             // sortBtn
@@ -444,7 +455,7 @@
             sortBtn.Depth = 0;
             sortBtn.HighEmphasis = true;
             sortBtn.Icon = null;
-            sortBtn.Location = new Point(539, 96);
+            sortBtn.Location = new Point(599, 96);
             sortBtn.Margin = new Padding(4, 6, 4, 6);
             sortBtn.MouseState = MaterialSkin.MouseState.HOVER;
             sortBtn.Name = "sortBtn";
@@ -464,7 +475,7 @@
             prevBtn.Depth = 0;
             prevBtn.HighEmphasis = true;
             prevBtn.Icon = null;
-            prevBtn.Location = new Point(404, 447);
+            prevBtn.Location = new Point(483, 435);
             prevBtn.Margin = new Padding(4, 6, 4, 6);
             prevBtn.MouseState = MaterialSkin.MouseState.HOVER;
             prevBtn.Name = "prevBtn";
@@ -484,7 +495,7 @@
             nextBtn.Depth = 0;
             nextBtn.HighEmphasis = true;
             nextBtn.Icon = null;
-            nextBtn.Location = new Point(539, 447);
+            nextBtn.Location = new Point(599, 436);
             nextBtn.Margin = new Padding(4, 6, 4, 6);
             nextBtn.MouseState = MaterialSkin.MouseState.HOVER;
             nextBtn.Name = "nextBtn";
@@ -500,7 +511,7 @@
             // pageNumTextBox
             // 
             pageNumTextBox.Enabled = false;
-            pageNumTextBox.Location = new Point(484, 455);
+            pageNumTextBox.Location = new Point(554, 435);
             pageNumTextBox.Name = "pageNumTextBox";
             pageNumTextBox.Size = new Size(38, 23);
             pageNumTextBox.TabIndex = 24;
@@ -508,7 +519,7 @@
             // countTextBox
             // 
             countTextBox.Enabled = false;
-            countTextBox.Location = new Point(620, 494);
+            countTextBox.Location = new Point(670, 588);
             countTextBox.Name = "countTextBox";
             countTextBox.Size = new Size(50, 23);
             countTextBox.TabIndex = 25;
@@ -516,7 +527,7 @@
             // maxStayTimeTextBox
             // 
             maxStayTimeTextBox.Enabled = false;
-            maxStayTimeTextBox.Location = new Point(692, 494);
+            maxStayTimeTextBox.Location = new Point(726, 588);
             maxStayTimeTextBox.Name = "maxStayTimeTextBox";
             maxStayTimeTextBox.Size = new Size(92, 23);
             maxStayTimeTextBox.TabIndex = 26;
@@ -524,7 +535,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(620, 476);
+            label10.Location = new Point(670, 570);
             label10.Name = "label10";
             label10.Size = new Size(43, 15);
             label10.TabIndex = 27;
@@ -533,7 +544,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(692, 476);
+            label11.Location = new Point(726, 570);
             label11.Name = "label11";
             label11.Size = new Size(83, 15);
             label11.TabIndex = 28;
@@ -547,7 +558,7 @@
             loadAnotherSourseButton.DialogResult = DialogResult.OK;
             loadAnotherSourseButton.HighEmphasis = true;
             loadAnotherSourseButton.Icon = null;
-            loadAnotherSourseButton.Location = new Point(66, 447);
+            loadAnotherSourseButton.Location = new Point(7, 435);
             loadAnotherSourseButton.Margin = new Padding(4, 6, 4, 6);
             loadAnotherSourseButton.MouseState = MaterialSkin.MouseState.HOVER;
             loadAnotherSourseButton.Name = "loadAnotherSourseButton";
@@ -560,11 +571,127 @@
             loadAnotherSourseButton.UseVisualStyleBackColor = true;
             loadAnotherSourseButton.Click += loadAnotherSourseButton_Click;
             // 
+            // dataBox
+            // 
+            dataBox.Location = new Point(398, 556);
+            dataBox.Name = "dataBox";
+            dataBox.Size = new Size(180, 23);
+            dataBox.TabIndex = 30;
+            // 
+            // updateBtn
+            // 
+            updateBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            updateBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            updateBtn.Depth = 0;
+            updateBtn.HighEmphasis = true;
+            updateBtn.Icon = null;
+            updateBtn.Location = new Point(586, 543);
+            updateBtn.Margin = new Padding(4, 6, 4, 6);
+            updateBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            updateBtn.Name = "updateBtn";
+            updateBtn.NoAccentTextColor = Color.Empty;
+            updateBtn.Size = new Size(77, 36);
+            updateBtn.TabIndex = 31;
+            updateBtn.Text = "Update";
+            updateBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            updateBtn.UseAccentColor = false;
+            updateBtn.UseVisualStyleBackColor = true;
+            updateBtn.Click += updateBtn_Click;
+            // 
+            // selectColBox
+            // 
+            selectColBox.FormattingEnabled = true;
+            selectColBox.Items.AddRange(new object[] { "Phone Number", "Apartment", "Stays For", "Stays Until" });
+            selectColBox.Location = new Point(66, 511);
+            selectColBox.Name = "selectColBox";
+            selectColBox.Size = new Size(137, 23);
+            selectColBox.TabIndex = 32;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(398, 537);
+            label12.Name = "label12";
+            label12.Size = new Size(34, 15);
+            label12.TabIndex = 34;
+            label12.Text = "Data:";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(66, 493);
+            label13.Name = "label13";
+            label13.Size = new Size(53, 15);
+            label13.TabIndex = 35;
+            label13.Text = "Column:";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(66, 537);
+            label14.Name = "label14";
+            label14.Size = new Size(20, 15);
+            label14.TabIndex = 36;
+            label14.Text = "Id:";
+            // 
+            // showDataBtn
+            // 
+            showDataBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            showDataBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            showDataBtn.Depth = 0;
+            showDataBtn.HighEmphasis = true;
+            showDataBtn.Icon = null;
+            showDataBtn.Location = new Point(286, 511);
+            showDataBtn.Margin = new Padding(4, 6, 4, 6);
+            showDataBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            showDataBtn.Name = "showDataBtn";
+            showDataBtn.NoAccentTextColor = Color.Empty;
+            showDataBtn.Size = new Size(105, 36);
+            showDataBtn.TabIndex = 37;
+            showDataBtn.Text = "Show data";
+            showDataBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            showDataBtn.UseAccentColor = false;
+            showDataBtn.UseVisualStyleBackColor = true;
+            showDataBtn.Click += showDataBtn_Click;
+            // 
+            // idBox
+            // 
+            idBox.Location = new Point(67, 556);
+            idBox.Name = "idBox";
+            idBox.Size = new Size(325, 23);
+            idBox.TabIndex = 38;
+            // 
+            // dataReserveBox
+            // 
+            dataReserveBox.Enabled = false;
+            dataReserveBox.Location = new Point(209, 511);
+            dataReserveBox.Name = "dataReserveBox";
+            dataReserveBox.Size = new Size(32, 23);
+            dataReserveBox.TabIndex = 39;
+            // 
+            // columnReserveBox
+            // 
+            columnReserveBox.Enabled = false;
+            columnReserveBox.Location = new Point(247, 511);
+            columnReserveBox.Name = "columnReserveBox";
+            columnReserveBox.Size = new Size(32, 23);
+            columnReserveBox.TabIndex = 40;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(845, 523);
+            ClientSize = new Size(895, 617);
+            Controls.Add(columnReserveBox);
+            Controls.Add(dataReserveBox);
+            Controls.Add(idBox);
+            Controls.Add(showDataBtn);
+            Controls.Add(label14);
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(selectColBox);
+            Controls.Add(updateBtn);
+            Controls.Add(dataBox);
             Controls.Add(loadAnotherSourseButton);
             Controls.Add(label11);
             Controls.Add(label10);
@@ -640,5 +767,15 @@
         private Label label11;
         private MaterialSkin.Controls.MaterialButton loadAnotherSourseButton;
         private OpenFileDialog fileDialog;
+        private TextBox dataBox;
+        private MaterialSkin.Controls.MaterialButton updateBtn;
+        private ComboBox selectColBox;
+        private Label label12;
+        private Label label13;
+        private Label label14;
+        private MaterialSkin.Controls.MaterialButton showDataBtn;
+        private TextBox idBox;
+        private TextBox dataReserveBox;
+        private TextBox columnReserveBox;
     }
 }

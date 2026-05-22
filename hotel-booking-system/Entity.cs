@@ -1,8 +1,11 @@
-﻿namespace hotel_booking_system
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace hotel_booking_system
 {
     public abstract class Entity : IEntity
     {
         public virtual string FileName { get; } = string.Empty;
+        [Key]
         public Guid Id { get; set; }
         public Entity()
         {

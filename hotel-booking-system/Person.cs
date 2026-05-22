@@ -1,4 +1,7 @@
-﻿namespace hotel_booking_system
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace hotel_booking_system
 {
     public class Person : Entity
     {
@@ -35,7 +38,7 @@
             {
                 throw new ArgumentException("Record cannot be null or empty.", nameof(record));
             }
-            var parts = record.Trim('[', ']').Split(new[] { "][" }, StringSplitOptions.None);
+            var parts = record.Trim('[', ']').Split(["]["], StringSplitOptions.None);
             if (parts.Length != 4)
             {
                 throw new ArgumentException("Invalid record format.");
