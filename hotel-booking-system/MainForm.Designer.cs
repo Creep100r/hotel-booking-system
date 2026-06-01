@@ -75,6 +75,7 @@
             idBox = new TextBox();
             dataReserveBox = new TextBox();
             columnReserveBox = new TextBox();
+            queryPerformer = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // listView1
@@ -677,11 +678,32 @@
             columnReserveBox.Size = new Size(32, 23);
             columnReserveBox.TabIndex = 40;
             // 
+            // queryPerformer
+            // 
+            queryPerformer.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            queryPerformer.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            queryPerformer.Depth = 0;
+            queryPerformer.HighEmphasis = true;
+            queryPerformer.Icon = null;
+            queryPerformer.Location = new Point(286, 435);
+            queryPerformer.Margin = new Padding(4, 6, 4, 6);
+            queryPerformer.MouseState = MaterialSkin.MouseState.HOVER;
+            queryPerformer.Name = "queryPerformer";
+            queryPerformer.NoAccentTextColor = Color.Empty;
+            queryPerformer.Size = new Size(152, 36);
+            queryPerformer.TabIndex = 41;
+            queryPerformer.Text = "Perform a query";
+            queryPerformer.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            queryPerformer.UseAccentColor = false;
+            queryPerformer.UseVisualStyleBackColor = true;
+            queryPerformer.Click += queryPerformer_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(895, 617);
+            Controls.Add(queryPerformer);
             Controls.Add(columnReserveBox);
             Controls.Add(dataReserveBox);
             Controls.Add(idBox);
@@ -777,5 +799,6 @@
         private TextBox idBox;
         private TextBox dataReserveBox;
         private TextBox columnReserveBox;
+        private MaterialSkin.Controls.MaterialButton queryPerformer;
     }
 }

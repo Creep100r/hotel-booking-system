@@ -1,4 +1,6 @@
-﻿namespace hotel_booking_system
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace hotel_booking_system
 {
     public class Customer : Person
     {

@@ -1,13 +1,14 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
-using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Security.Principal;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Diagnostics;
-using System.IO;
 
 namespace hotel_booking_system
 {
@@ -322,7 +323,7 @@ namespace hotel_booking_system
         {
             try
             {
-                
+
                 if (!string.IsNullOrWhiteSpace(idBox.Text))
                 {
                     if (!string.IsNullOrEmpty(selectColBox.Text))
@@ -410,7 +411,7 @@ namespace hotel_booking_system
                     untildate = udResult;
                 var idParse = parts[4];
                 var id = Guid.Parse(idParse);
-                
+
                 var firstname = string.Empty;
                 var lastname = string.Empty;
                 var email = string.Empty;
@@ -442,15 +443,6 @@ namespace hotel_booking_system
                     item.SubItems.Add(customer.Id.ToString());
                     listView1.Items.Add(item);
                 }
-                //DELETE OLD ROW FROM TEXT FILE
-                //try
-                //{
-                //    
-                //}
-                //catch (Exception ex)
-                //{
-                //    MaterialMessageBox.Show(ex.Message);
-                //}
                 //UPDATE DATABASE
                 try
                 {
@@ -470,6 +462,39 @@ namespace hotel_booking_system
                 catch (Exception ex)
                 {
                     Debug.Write(ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MaterialMessageBox.Show(ex.Message);
+            }
+        }
+        private void queryPerformer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    //---QUERY #9
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            // raw SQL
+                            db.Database.ExecuteSqlRaw("UPDATE customers SET ApartmentNumber = 's1' " +
+                                "WHERE PhoneNumber = '0980000001'");
+                            db.SaveChanges();
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    //-----------
+                   
                 }
             }
             catch (Exception ex)
